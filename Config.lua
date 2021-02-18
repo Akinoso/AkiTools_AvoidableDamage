@@ -136,7 +136,7 @@ function panel:Initialize()
 	-- 自己毒瘤
 	local soloOwnAD = self:CreateDropDown(
 		'自己毒瘤',
-		{ 'off', '关', 'say', '说', 'self', '自己可见' },
+		{ 'off', '关', 'say', '说', 'yell', '喊', 'self', '自己可见' },
 		function() return DB.solo.ownAD end,
 		function(v) DB.solo.ownAD= v end,
 		'self'
@@ -158,7 +158,7 @@ function panel:Initialize()
 	-- 自己毒瘤
 	local instanceOwnAD = self:CreateDropDown(
 		'自己毒瘤',
-		{ 'off', '关', 'say', '说', 'self', '自己可见', 'instance', '副本频道' },
+		{ 'off', '关', 'say', '说', 'yell', '喊', 'instance', '副本频道', 'self', '自己可见' },
 		function() return DB.instance.ownAD end,
 		function(v) DB.instance.ownAD= v end,
 		'self'
@@ -176,7 +176,7 @@ function panel:Initialize()
 	-- 他人毒瘤
 	local instanceOtherAD = self:CreateDropDown(
 		'他人毒瘤',
-		{ 'off', '关', 'say', '说', 'self', '自己可见', 'instance', '副本频道' },
+		{ 'off', '关', 'say', '说', 'yell', '喊', 'instance', '副本频道', 'self', '自己可见' },
 		function() return DB.instance.otherAD end,
 		function(v) DB.instance.otherAD= v end,
 		'self'
@@ -198,7 +198,7 @@ function panel:Initialize()
 	-- 自己毒瘤
 	local partyOwnAD = self:CreateDropDown(
 		'自己毒瘤',
-		{ 'off', '关', 'say', '说', 'self', '自己可见', 'party', '小队频道' },
+		{ 'off', '关', 'say', '说', 'yell', '喊', 'party', '小队频道', 'self', '自己可见' },
 		function() return DB.party.ownAD end,
 		function(v) DB.party.ownAD= v end,
 		'self'
@@ -216,7 +216,7 @@ function panel:Initialize()
 	-- 他人毒瘤
 	local partyOtherAD = self:CreateDropDown(
 		'他人毒瘤',
-		{ 'off', '关', 'say', '说', 'self', '自己可见', 'party', '小队频道' },
+		{ 'off', '关', 'say', '说', 'yell', '喊', 'party', '小队频道', 'self', '自己可见' },
 		function() return DB.party.otherAD end,
 		function(v) DB.party.otherAD= v end,
 		'self'
@@ -238,7 +238,7 @@ function panel:Initialize()
 	-- 自己毒瘤
 	local raidOwnAD = self:CreateDropDown(
 		'自己毒瘤',
-		{ 'off', '关', 'say', '说', 'self', '自己可见', 'party', '小队频道', 'raid', '团队频道' },
+		{ 'off', '关', 'say', '说', 'yell', '喊', 'party', '小队频道', 'raid', '团队频道', 'self', '自己可见' },
 		function() return DB.raid.ownAD end,
 		function(v) DB.raid.ownAD= v end,
 		'self'
@@ -256,7 +256,7 @@ function panel:Initialize()
 	-- 他人毒瘤
 	local raidOtherAD = self:CreateDropDown(
 		'他人毒瘤',
-		{ 'off', '关', 'say', '说', 'self', '自己可见', 'party', '小队频道', 'raid', '团队频道' },
+		{ 'off', '关', 'say', '说', 'yell', '喊', 'party', '小队频道', 'raid', '团队频道', 'self', '自己可见' },
 		function() return DB.raid.otherAD end,
 		function(v) DB.raid.otherAD= v end,
 		'self'

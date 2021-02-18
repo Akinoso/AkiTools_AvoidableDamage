@@ -16,6 +16,28 @@ function AkiAD:UpdateConfig(dst, src)
 	return dst
 end
 
+function AkiAD:CopyTable(targetTable)
+    if targetTable == nil then
+        return nil
+    end
+    if type(targetTable) ~= "table" then
+        return targetTable
+    end
+    local newTable = {}
+    local mt = getmetatable(targetTable)
+    if mt ~= nil then
+        setmetatable(newTable, mt)
+    end
+    for i, v in pairs(targetTable) do
+        if type(v) == "table" then
+            newTable[i] = TableDeepCopy(v)
+        else
+            newTable[i] = v
+        end
+    end
+    return newTable
+end
+
 function AkiAD:Announce(mode, msg, sound)
 	if sound ~= '' then
 		PlaySoundFile(sound, 'MASTER')
@@ -39,24 +61,6 @@ function AkiAD:Announce(mode, msg, sound)
 		mode = 'yell'
 	end
 	SendChatMessage(msg, mode:upper())
-end
-
--- 获取当前状态对应的配置
-function AkiAD:GetConfig()
-	local inInstance = IsInGroup(LE_PARTY_CATEGORY_INSTANCE)
-	local inParty = IsInGroup()
-	local inRaid = IsInRaid()
-	local cfg
-	if inInstance then
-		cfg = DB.instance
-	elseif inRaid then
-		cfg = DB.raid
-	elseif inParty and not inRaid  then
-		cfg = DB.party
-	else
-		cfg = DB.solo
-	end
-	return cfg
 end
 
 function AkiAD:Round(number, decimals)
@@ -253,4 +257,27 @@ function AkiAD:AnnounceADMsgList(mode)
 		local msg = k..'. '..v
 		AkiAD:Announce(mode, msg, '')
 	end
+end
+
+-- 获取当前状态对应的频道
+function AkiAD:GetConfig(k)
+	local inInstance = IsInGroup(LE_PARTY_CATEGORY_INSTANCE)
+	local inParty = IsInGroup()
+	local inRaid = IsInRaid()
+	local cfg
+	if inInstance then
+		cfg = AkiAD:CopyTable(DB.instance)
+	elseif inRaid then
+		cfg = AkiAD:CopyTable(DB.raid)
+	elseif inParty and not inRaid  then
+		cfg = AkiAD:CopyTable(DB.party)
+	else
+		cfg = AkiAD:CopyTable(DB.solo)
+	end
+	local channel = cfg[k]
+	if IsOutdoors() and (channel == 'say' or channel == 'yell') then
+		channel = 'self'
+	end
+	local sound = cfg[k..'Sound']
+	return channel, sound
 end

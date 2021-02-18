@@ -25,8 +25,6 @@ end
 -- 战斗日志
 frame:RegisterEvent('COMBAT_LOG_EVENT_UNFILTERED')
 function frame:COMBAT_LOG_EVENT_UNFILTERED( ...) 
-	local cfg = AkiAD:GetConfig()
-	
 	-- 读取事件返回值
 	local timestamp, eventType, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags = CombatLogGetCurrentEventInfo()
 	local prefix, suffix = eventType:match('^(%u*)_(%S*)$')
@@ -36,13 +34,15 @@ function frame:COMBAT_LOG_EVENT_UNFILTERED( ...)
 		local spellId, spellName, spellSchool, amount = select(12,CombatLogGetCurrentEventInfo())
 		if avoidableDamage.spells[spellId] then
 			if destName == UnitName('player') then
-				AkiAD:SpellDamage(cfg.ownAD, destName, spellId, amount, cfg.ownADSound)
+				local c, s = AkiAD:GetConfig('ownAD')
+				AkiAD:SpellDamage(c, destName, spellId, amount, s)
 			elseif AkiAD:IsInMyGroup(destFlags) then
 				local name = AkiAD:ShortName(destName)
-				if cfg.otherAD == 'self' and AkiAD:IsPlayer(destFlags) then
+				local c, s = AkiAD:GetConfig('otherAD')
+				if c == 'self' and AkiAD:IsPlayer(destFlags) then
 					name = AkiAD:ClassColor(name)
 				end
-				AkiAD:SpellDamage(cfg.otherAD, name, spellId, amount, cfg.otherADSound)
+				AkiAD:SpellDamage(c, name, spellId, amount, s)
 			end
 		
 		elseif avoidableDamage.spellsNT[spellId] then
