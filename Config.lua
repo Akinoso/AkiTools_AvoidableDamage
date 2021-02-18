@@ -8,7 +8,7 @@ scrollFrame.ScrollBar:ClearAllPoints()
 scrollFrame.ScrollBar:SetPoint("TOPLEFT", scrollFrame, "TOPRIGHT", -20, -20)
 scrollFrame.ScrollBar:SetPoint("BOTTOMLEFT", scrollFrame, "BOTTOMRIGHT", -20, 20)
 scrollFrame:SetScrollChild(panel)
-scrollFrame.name = 'AkiTools_AvoidableDamage'
+scrollFrame.name = 'AkiTools_AD'
 InterfaceOptions_AddCategory(scrollFrame)
 --标题
 local title = panel:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLargeLeft')
